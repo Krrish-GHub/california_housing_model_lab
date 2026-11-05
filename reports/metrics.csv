@@ -1,0 +1,5 @@
+model,rmse_100k_usd,mae_100k_usd,r2,fit_seconds_machine_dependent,artifact_bytes
+small_mlp,0.700002,0.489677,0.690659,1.522863,71224
+ridge,0.713127,0.510378,0.678951,0.015396,1447
+hist_gradient_boosting,0.763534,0.529817,0.631960,0.720437,318220
+median_baseline,1.418836,1.092915,-0.270875,0.014376,855

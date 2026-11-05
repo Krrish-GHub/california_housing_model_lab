@@ -1,0 +1,9 @@
+feature,mae_increase_100k_usd_mean,mae_increase_100k_usd_std
+Longitude,0.497954,0.019476
+MedInc,0.341959,0.009813
+Latitude,0.321803,0.015782
+AveOccup,0.091788,0.005109
+AveRooms,0.079335,0.003400
+AveBedrms,0.029260,0.002584
+HouseAge,0.027586,0.001438
+Population,-0.001012,0.003532

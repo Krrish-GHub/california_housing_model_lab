@@ -1,0 +1,51 @@
+{
+  "dataset": "scikit-learn California Housing / StatLib",
+  "dataset_rows": 20640,
+  "raw_predictor_count": 8,
+  "train_rows": 14674,
+  "holdout_rows": 5966,
+  "spatial_tile_degrees": 0.5,
+  "train_tiles": 132,
+  "holdout_tiles": 44,
+  "seed": 42,
+  "split": "GroupShuffleSplit on 0.5-degree longitude/latitude tiles; disjoint tiles",
+  "target_unit": "100,000 USD; source values capped at 5.00001 (approximately $500,001)",
+  "best_holdout_rmse_model_for_diagnostics_only": "small_mlp",
+  "feature_importance_method": "3-repeat permutation importance on up to 1,000 holdout rows; descriptive only, not tuning",
+  "sklearn_version": "1.9.1",
+  "metrics_ordered_by_rmse": [
+    {
+      "model": "small_mlp",
+      "rmse_100k_usd": 0.700001998896691,
+      "mae_100k_usd": 0.4896774449223159,
+      "r2": 0.6906594040919657,
+      "fit_seconds_machine_dependent": 1.522863206000693,
+      "artifact_bytes": 71224
+    },
+    {
+      "model": "ridge",
+      "rmse_100k_usd": 0.7131266458536794,
+      "mae_100k_usd": 0.5103782078386832,
+      "r2": 0.678950730818183,
+      "fit_seconds_machine_dependent": 0.015396022999993875,
+      "artifact_bytes": 1447
+    },
+    {
+      "model": "hist_gradient_boosting",
+      "rmse_100k_usd": 0.763533968473956,
+      "mae_100k_usd": 0.5298167281143664,
+      "r2": 0.6319599480527844,
+      "fit_seconds_machine_dependent": 0.7204368270004124,
+      "artifact_bytes": 318220
+    },
+    {
+      "model": "median_baseline",
+      "rmse_100k_usd": 1.4188359230004233,
+      "mae_100k_usd": 1.0929150402279584,
+      "r2": -0.27087462625141545,
+      "fit_seconds_machine_dependent": 0.014375923999978113,
+      "artifact_bytes": 855
+    }
+  ],
+  "note": "Benchmark results are for coarse spatial holdout tiles; fit times and artifact sizes are environment-specific."
+}
