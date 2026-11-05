@@ -64,3 +64,7 @@ The first training run downloads the public dataset through scikit-learn if it i
 ## Reproducibility
 
 `uv.lock` pins the tested dependency graph. The fixed split seed, model seeds, test suite, generated benchmark JSON, and GitHub Actions workflow make the experiment repeatable. The downloaded dataset itself is not committed; scikit-learn fetches the documented public source.
+
+## Live demo
+
+Try the [interactive GitHub Pages demo](https://krrish-ghub.github.io/california-housing-model-lab/).
