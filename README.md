@@ -59,7 +59,7 @@ The first training run downloads the public dataset through scikit-learn if it i
 
 ## How to explain it
 
-“I trained four regression approaches on the same public housing dataset. I kept 0.5-degree geographic tiles out of training to make the test less optimistic than a random row split, and fit imputation/scaling only on the training data. I compare RMSE, MAE, and R², inspect errors by price band and the worst residuals, then use permutation importance to describe which inputs the strongest holdout model relies on. Because this is 1990, aggregated census data with a capped target, the benchmark demonstrates ML workflow and trade-offs—not present-day property prices.”
+“I trained four regression approaches on the same public housing dataset. I kept 0.5-degree geographic tiles out of training to make the test less optimistic than a random row split, and fit imputation/scaling only on the training data. I compare RMSE, MAE, and R², inspect errors by price band and the worst residuals, then use permutation importance to describe which inputs the strongest holdout model relies on. Because this uses aggregated 1990 census data with a capped target, the benchmark demonstrates an ML workflow and its trade-offs rather than estimating current property prices.”
 
 ## Reproducibility
 
