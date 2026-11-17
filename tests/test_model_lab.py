@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from california_housing_lab.evaluation import regression_metrics
+from california_housing_lab.evaluation import grouped_regression_metrics, regression_metrics
 from california_housing_lab.features import HousingFeatureBuilder
 from california_housing_lab.models import build_models
 from california_housing_lab.train import split_by_geography
@@ -54,3 +54,33 @@ def test_regression_metrics_and_models_are_well_formed():
     assert result["rmse_100k_usd"] == pytest.approx(np.sqrt(1 / 3))
     assert result["mae_100k_usd"] == pytest.approx(1 / 3)
     assert set(build_models()) == {"median_baseline", "ridge", "hist_gradient_boosting", "small_mlp"}
+
+
+def test_grouped_metrics_expose_sample_sizes_and_singleton_r2():
+    rows = grouped_regression_metrics(
+        [1, 3, 10], [2, 2, 7], ["tile-b", "tile-b", "tile-a"]
+    )
+
+    assert rows == [
+        {
+            "group": "tile-a",
+            "n": 1,
+            "rmse_100k_usd": pytest.approx(3.0),
+            "mae_100k_usd": pytest.approx(3.0),
+            "r2": None,
+        },
+        {
+            "group": "tile-b",
+            "n": 2,
+            "rmse_100k_usd": pytest.approx(1.0),
+            "mae_100k_usd": pytest.approx(1.0),
+            "r2": pytest.approx(0.0),
+        },
+    ]
+
+
+def test_grouped_metrics_reject_mismatched_lengths_and_empty_input():
+    with pytest.raises(ValueError, match="same length"):
+        grouped_regression_metrics([1, 2], [1], ["tile-a", "tile-b"])
+    with pytest.raises(ValueError, match="at least one row"):
+        grouped_regression_metrics([], [], [])

@@ -15,7 +15,7 @@ from sklearn.datasets import fetch_california_housing
 from sklearn.inspection import permutation_importance
 from sklearn.model_selection import GroupShuffleSplit
 
-from .evaluation import regression_metrics
+from .evaluation import grouped_regression_metrics, regression_metrics
 from .models import build_models
 
 SEED = 42
@@ -82,6 +82,18 @@ def run(output: Path, seed: int = SEED):
         if mask.any():
             by_band.append({"target_band_100k_usd": str(band), "n": int(mask.sum()), **regression_metrics(np.asarray(y_holdout)[mask], best_predictions[mask])})
     pd.DataFrame(by_band).to_csv(output / "error_by_target_band.csv", index=False, float_format="%.6f")
+
+    # Per-tile scores show whether aggregate holdout metrics hide geographic variation.
+    spatial_rows = []
+    holdout_groups = groups.iloc[holdout_idx].to_numpy()
+    for model_name, (_, model_predictions) in fitted.items():
+        spatial_rows.extend(
+            {"model": model_name, "spatial_tile": row.pop("group"), **row}
+            for row in grouped_regression_metrics(y_holdout, model_predictions, holdout_groups)
+        )
+    pd.DataFrame(spatial_rows).to_csv(
+        output / "spatial_tile_metrics.csv", index=False, float_format="%.6f"
+    )
 
     # Permutation importance is post-hoc explanation on the locked holdout, not selection.
     sample_n = min(1000, len(X_holdout))

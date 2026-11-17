@@ -27,7 +27,7 @@ All models share the same training-only imputation and engineered ratios (rooms 
 
 A 25% holdout is formed by keeping entire 0.5-degree longitude/latitude tiles out of training with `GroupShuffleSplit`. This is more demanding than a random row split because nearby census blocks are less likely to leak across train and holdout. The exact train/holdout counts and number of disjoint tiles are written to `reports/benchmark.json`.
 
-The held-out metrics are RMSE and MAE in units of $100,000, and R². `reports/error_by_target_band.csv` summarizes errors across target-value quartiles; `reports/largest_holdout_errors.csv` exposes the 20 largest absolute residuals with their aggregate inputs. After the models are evaluated, permutation importance on up to 1,000 holdout rows is saved as a descriptive explanation only; it is not used for model selection or tuning. Fit time and serialized model size are reported for context, but are machine-dependent.
+The held-out metrics are RMSE and MAE in units of $100,000, and R². `reports/error_by_target_band.csv` summarizes errors across target-value quartiles; `reports/largest_holdout_errors.csv` exposes the 20 largest absolute residuals with their aggregate inputs. `reports/spatial_tile_metrics.csv` reports each model’s errors within every held-out geographic tile, including its sample count; this makes geographic variation visible, while small tiles can have noisy scores and single-row R² is left blank. After the models are evaluated, permutation importance on up to 1,000 holdout rows is saved as a descriptive explanation only; it is not used for model selection or tuning. Fit time and serialized model size are reported for context, but are machine-dependent.
 
 ## Results from the committed run
 
@@ -55,7 +55,7 @@ uv run python -m pytest -q
 uv build
 ```
 
-The first training run downloads the public dataset through scikit-learn if it is not cached. Generated files go into `reports/`: benchmark JSON, metrics CSV, residual summaries, permutation importance, and a serialized fitted pipeline for each model. You can change output path or seed with `--output PATH` and `--seed INTEGER`.
+The first training run downloads the public dataset through scikit-learn if it is not cached. Generated files go into `reports/`: benchmark JSON, metrics CSV, residual and spatial-tile summaries, permutation importance, and a serialized fitted pipeline for each model. You can change output path or seed with `--output PATH` and `--seed INTEGER`.
 
 ## How to explain it
 
